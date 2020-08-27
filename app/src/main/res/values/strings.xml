@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">LMSAndroidApplication</string>
+    <string name="no_signal_icon">No Signal</string>
+    <string name="check_your_connection">Check you internet connection</string>
+    <string name="retry">retry</string>
+
+    <string name="this_option_will_allow_you_to_change_your_current_school">This option will allow you to change your current school</string>
+    <string name="e_edport_lms">e-EdPort LMS</string>
+</resources>
