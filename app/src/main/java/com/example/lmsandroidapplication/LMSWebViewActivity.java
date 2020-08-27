@@ -1,5 +1,6 @@
 package com.example.lmsandroidapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -14,6 +15,7 @@ import android.net.NetworkInfo;
 import android.net.http.SslError;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.CookieSyncManager;
 import android.webkit.SslErrorHandler;
@@ -25,6 +27,10 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+
+import com.example.lmsandroidapplication.SchoolInformation.SchoolInformationActivity;
+import com.example.lmsandroidapplication.Utilities.PrefManager;
+import com.google.android.material.navigation.NavigationView;
 
 public class LMSWebViewActivity extends AppCompatActivity {
     private  String PAGE_URL;
@@ -39,8 +45,8 @@ public class LMSWebViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_l_m_s_web_view);
 
-       // PAGE_URL= new PrefManager(this).getSchoolUrl();
-        PAGE_URL="https://lms.schooltimes-s.ca/";
+       PAGE_URL= new PrefManager(this).getSchoolUrl();
+
 
         layout_error = findViewById(R.id.error_layout);
         btn_retry = findViewById(R.id.btn_retry);
@@ -66,7 +72,7 @@ public class LMSWebViewActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                //new PrefManager(getApplicationContext()).setSchoolUrl(null);
+                new PrefManager(getApplicationContext()).setSchoolUrl(null);
                 startSchoolInformationActivity();
                 finish();
 
@@ -81,6 +87,23 @@ public class LMSWebViewActivity extends AppCompatActivity {
         });
 
         final AlertDialog alert = alertDialog.create();
+
+        NavigationView view = findViewById(R.id.nav_view);
+        drawerLayout= findViewById(R.id.drawer_layout);
+
+        view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                int id = item.getItemId();
+                if(id==R.id.nav_change_school){
+                    alert.show();
+
+                }
+                drawerLayout.closeDrawer(GravityCompat.START);
+                return true;
+            }
+        });
 
 
     }
@@ -198,6 +221,8 @@ public class LMSWebViewActivity extends AppCompatActivity {
 
     void startSchoolInformationActivity(){
         //#todo
+
+        startActivity(new Intent(LMSWebViewActivity.this, SchoolInformationActivity.class));
     }
 
 }

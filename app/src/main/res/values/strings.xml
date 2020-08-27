@@ -6,4 +6,6 @@
 
     <string name="this_option_will_allow_you_to_change_your_current_school">This option will allow you to change your current school</string>
     <string name="e_edport_lms">e-EdPort LMS</string>
+    <string name="e_edport_icon">icon</string>
+    <string name="please_select_your_school">Please select your institution</string>
 </resources>
