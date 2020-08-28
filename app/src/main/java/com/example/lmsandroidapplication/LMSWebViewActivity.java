@@ -1,6 +1,7 @@
 package com.example.lmsandroidapplication;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -9,16 +10,20 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.net.http.SslError;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.CookieSyncManager;
 import android.webkit.SslErrorHandler;
+import android.webkit.URLUtil;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
@@ -27,6 +32,7 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.lmsandroidapplication.SchoolInformation.SchoolInformationActivity;
 import com.example.lmsandroidapplication.Utilities.PrefManager;
@@ -46,6 +52,7 @@ public class LMSWebViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_l_m_s_web_view);
 
        PAGE_URL= new PrefManager(this).getSchoolUrl();
+
 
 
         layout_error = findViewById(R.id.error_layout);
@@ -149,9 +156,35 @@ public class LMSWebViewActivity extends AppCompatActivity {
 
         }
 
+        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+            String url = request.getUrl().toString();
 
 
+            if( URLUtil.isNetworkUrl(url) ) {
+
+                if(url.contains("https://meet.google.com")){
+                    webView.setWebViewClient(null);
+                    webView.loadUrl(url);
+                }
+                return false;
+            }
+            if(appInstalledOrNot(url)){
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity( intent );
+            }
+            else {
+                Toast.makeText(getApplicationContext(),"Please install gmeet",Toast.LENGTH_LONG).show();
+
+            }
+
+            return true;
+
+        }
     }
+
+
 
 
     @Override
@@ -182,6 +215,8 @@ public class LMSWebViewActivity extends AppCompatActivity {
         webView.setWebViewClient(new MyWebViewClient());
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setDomStorageEnabled(true);
+
+
         LoadWebViewUrl(PAGE_URL);
     }
 
@@ -223,6 +258,18 @@ public class LMSWebViewActivity extends AppCompatActivity {
         //#todo
 
         startActivity(new Intent(LMSWebViewActivity.this, SchoolInformationActivity.class));
+    }
+
+    private boolean appInstalledOrNot(String uri) {
+
+        PackageManager pm = getPackageManager();
+        try {
+            pm.getPackageInfo(uri, PackageManager.GET_ACTIVITIES);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+        }
+
+        return false;
     }
 
 }
