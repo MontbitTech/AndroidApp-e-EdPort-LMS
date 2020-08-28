@@ -22,6 +22,12 @@
         <activity android:name=".SchoolInformation.SchoolInformationActivity"
             android:windowSoftInputMode="adjustResize"
             >
+
+
+        </activity>
+
+        <activity android:name=".IntroSlider.IntroSliderActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,5 +37,6 @@
         </activity>
 
     </application>
+
 
 </manifest>

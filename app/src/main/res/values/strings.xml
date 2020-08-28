@@ -8,4 +8,26 @@
     <string name="e_edport_lms">e-EdPort LMS</string>
     <string name="e_edport_icon">icon</string>
     <string name="please_select_your_school">Please select your institution</string>
+
+    <string name="next">NEXT</string>
+    <string name="skip">SKIP</string>
+    <string name="start">GOT IT</string>
+
+
+    <string name="slide_1_title">Hello There!</string>
+    <string name="slide_1_desc">Welcome to our LMS!</string>
+
+    <string name="slide_2_title">OUR CMS</string>
+    <string name="slide_2_desc">Conduct Your Online Classes Using Our LMS System!</string>
+
+    <string name="slide_3_title">TRACK YOUR STUDENTS</string>
+    <string name="slide_3_desc">Track your students in the classrooms!</string>
+
+    <string name="slide_4_title">SCHEDULE CLASSES ON DEMAND</string>
+    <string name="slide_4_desc">Schedule your own flexible classes!</string>
+    <string name="intro_slider_image_1">intro_slider_image_1</string>
+    <string name="intro_slider_image_2">intro_slider_image_2</string>
+    <string name="intro_slider_image_3">intro_slider_image_3</string>
+    <string name="intro_slider_image_4">intro_slider_image_4</string>
+    <string name="change_your_school">CHANGE YOUR SCHOOL</string>
 </resources>
